@@ -1,0 +1,48 @@
+name: testing shell script on microsoft and self hosted agent
+trigger:
+- master
+stages:
+  - stage: runscript
+    displayName: runscript
+    jobs:
+      - job: runshellscript
+        displayName: runshellscript
+        pool: 
+          default
+      
+        steps:
+          - task: ShellScript@2  
+            inputs:
+              scriptPath: 'shell.sh'
+  - stage: runscriptonmicrosofthostedagents
+    displayName: microsoftagent
+    jobs:
+      - job: runscript1
+        displayName: runscript1
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: ShellScript@2
+            inputs:
+              scriptPath: 'shell1.sh'
+    dependsOn: runscript
+  - stage: buildimage
+    displayName: builddockerimage
+    jobs:
+      - job: buildimage
+        displayName: buildimage
+        pool:
+          default
+        steps:
+          - task: Docker@2          
+            inputs:
+              containerRegistry: dockerserviceconnection1
+              command: 'login'
+          - task: Docker@2
+            inputs:
+              command: buildAndPush
+              repository: kharatramesh/vadapavimages
+              Dockerfile: 'Dockerfile'
+              tags: multiplestage1
+  
+   
