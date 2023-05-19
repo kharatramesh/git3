@@ -6,7 +6,7 @@ trigger:
 pool: dev
 
 steps:
-- script: echo Hello, world!
+- script: echo Hello, world123!
   displayName: 'Run a one-line script'
 
 - script: |
@@ -14,5 +14,7 @@ steps:
     touch /home/ubuntu/1.txt
     touch /tmp/2.txt
     date
+    df -h
+    echo "Hello1" > /home/ubuntu/1.txt
     
   displayName: 'Run a multi-line script'
