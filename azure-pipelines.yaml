@@ -36,7 +36,7 @@ stages:
         steps:
           - task: Docker@2          
             inputs:
-              containerRegistry: dockerserviceconnection1
+              containerRegistry: dockerconection1
               command: 'login'
           - task: Docker@2
             inputs:
