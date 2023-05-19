@@ -32,7 +32,7 @@ stages:
       - job: buildimage
         displayName: buildimage
         pool:
-          default
+          vmImage: ubuntu-latest
         steps:
           - task: Docker@2          
             inputs:
